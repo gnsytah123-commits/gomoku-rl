@@ -1,0 +1,18 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+.venv/
+venv/
+.env
+.env.*
+
+.idea/
+.vscode/
+*.swp
+
+recycle_bin/
+
+# Self-play datasets are large and regenerable
+*.pkl
