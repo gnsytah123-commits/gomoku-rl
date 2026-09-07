@@ -1,3 +1,5 @@
+"""Print a few self-play samples: board, value target, and top policy moves."""
+
 import os
 import pickle
 import numpy as np
@@ -59,4 +61,4 @@ def visualize_samples(file_path, num_samples=3):
 
 
 if __name__ == "__main__":
-    visualize_samples(os.path.join(HERE, "trained_7x7.1000.pkl"), num_samples=3)
+    visualize_samples(os.path.join(HERE, "data_from_2nd_model.pkl"), num_samples=3)

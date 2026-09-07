@@ -1,4 +1,7 @@
+"""7x7 Gomoku (five in a row). Encoding is channels-first (3, 7, 7)."""
+
 import numpy as np
+
 
 class Gomoku:
     EMPTY = 0
@@ -16,11 +19,9 @@ class Gomoku:
 
     def __init__(self):
         self.board = [[self.EMPTY for _ in range(self.BOARD_SIZE)] for _ in range(self.BOARD_SIZE)]
-        self.player = self.BLACK # תור מי
+        self.player = self.BLACK
         self.status = self.ONGOING
-        self.move_count = 0 #כמה מהלכים בוצעו
-
-       
+        self.move_count = 0
 
     def legal_moves(self):
         legal_moves = []
@@ -41,10 +42,9 @@ class Gomoku:
         self.board[row][col] = self.player
         self.move_count += 1
         
-        if self.winning_move(move): #נבדוק אם אחד השחנים ניצח
+        if self.winning_move(move):
             self.status = self.BLACK_WIN if self.player == self.BLACK else self.WHITE_WIN
-        
-        elif self.move_count == self.BOARD_SIZE * self.BOARD_SIZE: #משחק נגמר
+        elif self.move_count == self.BOARD_SIZE * self.BOARD_SIZE:
             self.status = self.DRAW
 
         # Always switch. After a win the player-to-move is the loser, so
@@ -52,7 +52,7 @@ class Gomoku:
         self.player = self.other(self.player)
 
     def other(self, player):
-        return self.WHITE if player == self.BLACK else self.BLACK
+        return self.WHITE if player == self.BLACK else self.BLACK 
 
     def winner(self):
         if self.status == self.BLACK_WIN:
@@ -77,7 +77,7 @@ class Gomoku:
         self.status = self.ONGOING
         self.player = self.other(self.player)
 
-    def clone(self): #העתקת מצב משחק
+    def clone(self):
         clone = Gomoku()
         clone.board = [row[:] for row in self.board]  
         clone.player = self.player
@@ -148,19 +148,12 @@ class Gomoku:
                 elif self.board[r][c] == opponent:
                     encoded[1, r, c] = 1.0
 
-        # Channel 2: whose turn it is
-        if current_player == self.BLACK:
-            encoded[2, :, :] = 1.0
-        else:
-            encoded[2, :, :] = 0.0
+        encoded[2, :, :] = 1.0 if current_player == self.BLACK else 0.0
 
         return encoded
     
     def decode(self, action_index):
-        """
-        the nural network return 1 number, we invert to position in game
-        Decode an action index (0–48) into a (row, col) move
-        """
+        """Decode an action index (0–48) into a (row, col) move."""
 
         if action_index < 0 or action_index >= self.BOARD_SIZE * self.BOARD_SIZE:
             raise ValueError("Invalid action index")
@@ -195,7 +188,7 @@ def main():
 
             game.make(move)
 
-        except ValueError as e:
+        except ValueError:
             print("Invalid move. Please enter: row col (0-6)")
         except IndexError:
             print("Move out of bounds. Try again.")
@@ -210,5 +203,6 @@ def main():
         print("\nIt's a draw!")
 
 
-
+if __name__ == "__main__":
+    main()
 
