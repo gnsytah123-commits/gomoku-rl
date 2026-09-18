@@ -6,12 +6,30 @@ The playable checkpoint is `3rd_model.keras`. Self-play `.pkl` files are gitigno
 
 ## Play
 
-Python 3.10+ recommended.
+Python 3.10–3.12 required.
 
-```bash
-pip install -r requirements.txt
-python gomoku_gui.py
-```
+**Create and activate a virtual environment:**
+
+   - **macOS / Linux:**
+     ```bash
+     python3 -m venv venv
+     source venv/bin/activate
+     ```
+   - **Windows:**
+     ```cmd
+     python -m venv venv
+     venv\Scripts\activate
+     ```
+
+**Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+**run the game:**
+    ```bash
+    python gomoku_gui.py
+    ```
 
 You are Black. Click a square. The AI (`3rd_model.keras`, `c_puct=5`) plays White. TensorFlow may take a few seconds to load on the first run.
 
